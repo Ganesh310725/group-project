@@ -1,0 +1,249 @@
+/* ==========================================================================
+   Amaze-on — marketplace stylesheet
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --ink: #171a2e;
+  --indigo: #262b5c;
+  --indigo-light: #363c82;
+  --amber: #ffb020;
+  --amber-dark: #d99000;
+  --paper: #ffffff;
+  --surface: #f2f3f8;
+  --line: #e1e3ee;
+  --text: #20222c;
+  --muted: #6b6f85;
+  --success: #1e8e5a;
+  --danger: #c94a3f;
+
+  --radius-s: 6px;
+  --radius-m: 10px;
+  --shadow-drawer: -12px 0 30px rgba(23, 26, 46, 0.18);
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  color: var(--text);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; }
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid var(--amber-dark);
+  outline-offset: 2px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Header                                                                  */
+/* ---------------------------------------------------------------------- */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 14px 28px;
+  background: var(--indigo);
+  border-bottom: 3px solid var(--amber);
+}
+
+.logo {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 1.55rem;
+  color: var(--paper);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.logo span { color: var(--amber); }
+
+.search-form {
+  flex: 1 1 auto;
+  max-width: 640px;
+  display: flex;
+  margin: 0 auto;
+}
+
+.search-form input[type="search"] {
+  flex: 1;
+  padding: 11px 16px;
+  font-size: 0.98rem;
+  border: none;
+  border-radius: var(--radius-m) 0 0 var(--radius-m);
+  background: var(--paper);
+  color: var(--text);
+}
+
+.search-form input[type="search"]::placeholder {
+  color: var(--muted);
+}
+
+.search-form button {
+  padding: 0 20px;
+  border: none;
+  border-radius: 0 var(--radius-m) var(--radius-m) 0;
+  background: var(--amber);
+  color: var(--ink);
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: background 0.15s ease;
+}
+
+.search-form button:hover { background: var(--amber-dark); }
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-shrink: 0;
+}
+
+.account-area {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: var(--paper);
+}
+
+.account-greeting {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+
+.account-greeting strong {
+  font-size: 0.92rem;
+}
+
+.account-greeting small {
+  color: #c7c9de;
+  font-size: 0.75rem;
+}
+
+.btn-link {
+  background: none;
+  border: 1px solid rgba(255,255,255,0.4);
+  color: var(--paper);
+  padding: 8px 16px;
+  border-radius: var(--radius-s);
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: border-color 0.15s ease, background 0.15s ease;
+  display: inline-block;
+}
+
+.btn-link:hover {
+  border-color: var(--amber);
+  background: rgba(255, 176, 32, 0.1);
+}
+
+.btn-text {
+  background: none;
+  border: none;
+  color: #c7c9de;
+  font-size: 0.8rem;
+  text-decoration: underline;
+  padding: 0;
+}
+
+.btn-text:hover { color: var(--paper); }
+
+.cart-toggle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.25);
+  color: var(--paper);
+  padding: 9px 16px;
+  border-radius: var(--radius-s);
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background 0.15s ease;
+}
+
+.cart-toggle:hover { background: rgba(255,255,255,0.16); }
+
+.cart-toggle svg { width: 20px; height: 20px; flex-shrink: 0; }
+
+.cart-count {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: var(--amber);
+  color: var(--ink);
+  font-size: 0.72rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Tagline strip                                                          */
+/* ---------------------------------------------------------------------- */
+
+.tagline {
+  padding: 22px 28px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+
+.tagline p {
+  margin: 0;
+  max-width: 900px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+
+.tagline p em {
+  font-style: normal;
+  color: var(--indigo-light);
+}
+
+main { padding: 32px 28px 80px; }
+
+.results-heading {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin: 0 0 18px;
+  font-weight: 500;
+}
+
+.results-heading strong { color: var(--text); }
