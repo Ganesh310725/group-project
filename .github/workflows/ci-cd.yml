@@ -1,105 +1,39 @@
-version: "1.0"
-store:
-  name: "amaze-on"
-  tagline: "Search it, add it, amaze yourself with how fast it shows up."
-  currency: "USD"
+name: Deploy amaze-on to GitHub Pages
 
-products:
-  - id: "p1"
-    name: "Cloudstep Running Shoes"
-    category: "Footwear"
-    desc: "Lightweight everyday trainers with breathable mesh and cushioned soles."
-    price: 59.99
-    rating:
-      score: 4.5
-      reviews_count: 2301
-    img: "1.webp"
-    in_stock: true
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
 
-  - id: "p2"
-    name: "AuraBrew Coffee Maker"
-    category: "Kitchen Appliances"
-    desc: "12-cup drip machine with a built-in grinder and keep-warm plate."
-    price: 74.50
-    rating:
-      score: 4.3
-      reviews_count: 958
-    img: "2.webp"
-    in_stock: true
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
-  - id: "p3"
-    name: "Nomad 20L Backpack"
-    category: "Bags & Travel"
-    desc: "Water-resistant daypack with a padded laptop sleeve and side pockets."
-    price: 42.00
-    rating:
-      score: 4.6
-      reviews_count: 1477
-    img: "3.webp"
-    in_stock: true
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
-  - id: "p4"
-    name: "Lumen Desk Lamp"
-    category: "Home & Office"
-    desc: "Adjustable LED lamp with three brightness levels and USB charging port."
-    price: 28.99
-    rating:
-      score: 4.4
-      reviews_count: 612
-    img: "4.webp"
-    in_stock: true
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-  - id: "p5"
-    name: "EchoSound Earbuds"
-    category: "Audio & Electronics"
-    desc: "True wireless earbuds with active noise cancellation and 24-hour battery."
-    price: 89.00
-    rating:
-      score: 4.2
-      reviews_count: 3140
-    img: "5.webp"
-    in_stock: true
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
 
-  - id: "p6"
-    name: "Terra Cast Iron Pan"
-    category: "Cookware"
-    desc: "Pre-seasoned 12-inch skillet built for stovetop, oven, or campfire."
-    price: 35.75
-    rating:
-      score: 4.7
-      reviews_count: 2005
-    img: "6.webp"
-    in_stock: true
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Root directory containing index.html, CSS, and webp images
+          path: '.'
 
-  - id: "p7"
-    name: "Flexi Yoga Mat"
-    category: "Fitness & Wellness"
-    desc: "Non-slip 6mm mat with carry strap, ideal for yoga, pilates, or stretching."
-    price: 24.99
-    rating:
-      score: 4.5
-      reviews_count: 874
-    img: "7.webp"
-    in_stock: true
-
-  - id: "p8"
-    name: "Pulse Fitness Tracker"
-    category: "Wearables & Fitness"
-    desc: "Tracks steps, heart rate, and sleep with a 10-day battery life."
-    price: 49.99
-    rating:
-      score: 4.1
-      reviews_count: 1690
-    img: "8.webp"
-    in_stock: true
-
-  - id: "p9"
-    name: "Hearth Ceramic Mug Set"
-    category: "Kitchen & Dining"
-    desc: "Set of 4 stoneware mugs, dishwasher and microwave safe."
-    price: 19.50
-    rating:
-      score: 4.8
-      reviews_count: 536
-    img: "9.webp"
-    in_stock: true
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
