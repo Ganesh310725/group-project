@@ -1,162 +1,246 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-}
-body {
-    background-color: #f3f5f8;
-    color: #0f1111;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-/* Header matching the top navy bar */
-.navbar {
-    background-color: #131921;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-bottom: 3px solid #f3a847;
-    padding: 0 20px;
-}
-.logo {
-    font-size: 1.5rem;
-    font-weight: 800;
-    letter-spacing: -0.5px;
-    color: #ffffff;
-}
-.logo span {
-    color: #f3a847;
-}
-/* Page body / card container */
-.login-wrapper {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 30px 16px;
-}
-.login-card {
-    width: 100%;
-    max-width: 380px;
-    background-color: #ffffff;
-    border: 1px solid #d5d9d9;
-    border-radius: 8px;
-    padding: 28px 26px;
-    box-shadow: 0 2px 5px rgba(15, 17, 17, 0.05);
-}
-.login-card h1 {
-    font-size: 1.6rem;
-    font-weight: 600;
-    color: #0f1111;
-    margin-bottom: 20px;
-}
-/* Form inputs & labels */
-.form-group {
-    margin-bottom: 16px;
-}
-.label-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 6px;
-}
-label {
-    display: block;
-    font-size: 0.82rem;
-    font-weight: 700;
-    color: #111;
-    margin-bottom: 6px;
-}
-.label-row label {
-    margin-bottom: 0;
-}
-input {
-    width: 100%;
-    height: 38px;
-    padding: 6px 12px;
-    font-size: 0.9rem;
-    border: 1px solid #888c8c;
-    border-radius: 6px;
-    background-color: #ffffff;
-    outline: none;
-    transition: border-color 0.15s ease, box-shadow 0.15s ease;
-}
-input:focus {
-    border-color: #e47911;
-    box-shadow: 0 0 0 3px rgba(228, 121, 17, 0.25);
-}
-.forgot-link {
-    font-size: 0.78rem;
-    color: #213547;
-    text-decoration: none;
-}
-.forgot-link:hover {
-    color: #c45500;
-    text-decoration: underline;
-}
-/* Primary orange CTA button */
-.btn-primary {
-    width: 100%;
-    height: 40px;
-    margin-top: 8px;
-    background: #f3a847;
-    border: 1px solid #e29227;
-    border-radius: 6px;
-    color: #0f1111;
-    font-size: 0.9rem;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.15s ease;
-}
-.btn-primary:hover {
-    background: #e47911;
-}
-/* Subtle separator */
-.divider {
-    position: relative;
-    text-align: center;
-    margin: 26px 0 16px;
-}
-.divider::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background: #e7e7e7;
-    z-index: 1;
-}
-.divider span {
-    position: relative;
-    z-index: 2;
-    background: #ffffff;
-    padding: 0 10px;
-    font-size: 0.78rem;
-    color: #767676;
-}
-/* Secondary ghost-button for registration */
-.btn-secondary {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 38px;
-    background: #ffffff;
-    border: 1px solid #d5d9d9;
-    border-radius: 6px;
-    color: #0f1111;
-    font-size: 0.85rem;
-    font-weight: 500;
-    text-decoration: none;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-    transition: background 0.15s ease, border-color 0.15s ease;
-}
-.btn-secondary:hover {
-    background: #f7fafa;
-    border-color: #a8acad;
-}
+project: amaze-on
+description: 'Static demo marketplace site: homepage + sign-in/sign-up pages, bundled as one manifest.'
+files:
+- path: index.html
+  description: 'Marketplace homepage: search bar, product grid, cart drawer, login-state header'
+  content: |
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>amaze-on — search &amp; shop</title>
+    <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+
+    <header class="site-header">
+      <a href="index.html" class="logo">amaze<span>-on</span></a>
+
+      <form class="search-form" role="search" id="search-form">
+        <label for="search-input" class="visually-hidden">Search products</label>
+        <input type="search" id="search-input" name="q" placeholder="Search amaze-on for anything...">
+        <button type="submit">Search</button>
+      </form>
+
+      <div class="header-actions">
+
+        <!-- Logged-out state: link to your existing login.html -->
+        <div class="account-area" id="logged-out-view">
+          <a class="btn-link" href="login.html">Log in</a>
+        </div>
+
+        <!-- Logged-in state: shown after login.html sets localStorage("amazeon_user") -->
+        <div class="account-area" id="logged-in-view" style="display:none;">
+          <div class="account-greeting">
+            <strong>Hi, <span id="user-name-slot">there</span></strong>
+            <button class="btn-text" id="logout-btn" type="button">Log out</button>
+          </div>
+        </div>
+
+        <button class="cart-toggle" id="cart-toggle" type="button" aria-haspopup="dialog" aria-controls="cart-drawer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h3l2.6 13.4a2 2 0 0 0 2 1.6h9.8a2 2 0 0 0 2-1.6L23 6H6"></path>
+          </svg>
+          Cart
+          <span class="cart-count" id="cart-count">0</span>
+        </button>
+      </div>
+    </header>
+
+    <div class="tagline">
+      <p>Search it, add it, <em>amaze</em> yourself with how fast it shows up.</p>
+    </div>
+
+    <main>
+      <p class="results-heading">Showing <strong>9</strong> products</p>
+
+      <div class="product-grid" id="product-grid">
+        <!-- Product cards are rendered by the script below from the PRODUCTS array -->
+      </div>
+    </main>
+
+    <!-- Cart drawer -->
+    <div class="cart-overlay" id="cart-overlay"></div>
+    <aside class="cart-drawer" id="cart-drawer" role="dialog" aria-modal="true" aria-labelledby="cart-heading">
+      <div class="cart-drawer-header">
+        <h2 id="cart-heading">Your cart</h2>
+        <button class="cart-close" id="cart-close" type="button" aria-label="Close cart">&times;</button>
+      </div>
+      <div class="cart-items" id="cart-items">
+        <p class="cart-empty">Your cart is empty. Add something amazing.</p>
+      </div>
+      <div class="cart-drawer-footer">
+        <div class="cart-subtotal">
+          <span>Subtotal</span>
+          <strong id="cart-subtotal">$0.00</strong>
+        </div>
+        <button class="checkout-btn" id="checkout-btn" type="button">Checkout</button>
+      </div>
+    </aside>
+
+    <script>
+    const PRODUCTS = [
+      { id: "p1", name: "Cloudstep Running Shoes", desc: "Lightweight everyday trainers with breathable mesh and cushioned soles.", price: 59.99, rating: "4.5 (2,301)", img: "1.webp" },
+      { id: "p2", name: "AuraBrew Coffee Maker", desc: "12-cup drip machine with a built-in grinder and keep-warm plate.", price: 74.50, rating: "4.3 (958)", img: "2.webp" },
+      { id: "p3", name: "Nomad 20L Backpack", desc: "Water-resistant daypack with a padded laptop sleeve and side pockets.", price: 42.00, rating: "4.6 (1,477)", img: "3.webp" },
+      { id: "p4", name: "Lumen Desk Lamp", desc: "Adjustable LED lamp with three brightness levels and USB charging port.", price: 28.99, rating: "4.4 (612)", img: "4.webp" },
+      { id: "p5", name: "EchoSound Earbuds", desc: "True wireless earbuds with active noise cancellation and 24-hour battery.", price: 89.00, rating: "4.2 (3,140)", img: "5.webp" },
+      { id: "p6", name: "Terra Cast Iron Pan", desc: "Pre-seasoned 12-inch skillet built for stovetop, oven, or campfire.", price: 35.75, rating: "4.7 (2,005)", img: "6.webp" },
+      { id: "p7", name: "Flexi Yoga Mat", desc: "Non-slip 6mm mat with carry strap, ideal for yoga, pilates, or stretching.", price: 24.99, rating: "4.5 (874)", img: "7.webp" },
+      { id: "p8", name: "Pulse Fitness Tracker", desc: "Tracks steps, heart rate, and sleep with a 10-day battery life.", price: 49.99, rating: "4.1 (1,690)", img: "8.webp" },
+      { id: "p9", name: "Hearth Ceramic Mug Set", desc: "Set of 4 stoneware mugs, dishwasher and microwave safe.", price: 19.50, rating: "4.8 (536)", img: "9.webp" },
+    ];
+    const grid = document.getElementById("product-grid");
+    function photoPlaceholderSVG() {
+      return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="16" rx="2"></rect><circle cx="8.5" cy="9.5" r="1.5"></circle><path d="M21 15l-5-5-11 11"></path></svg>`;
+    }
+    function renderProducts() {
+      grid.innerHTML = PRODUCTS.map(p => `
+        <article class="product-card" data-id="${p.id}">
+          <div class="product-photo">
+            <img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'), { className: 'photo-fallback', innerHTML: \`${photoPlaceholderSVG()}<span>Photo of<br>${p.name}</span>\` }))">
+          </div>
+          <div class="product-body">
+            <h3 class="product-name">${p.name}</h3>
+            <p class="product-desc">${p.desc}</p>
+            <div class="product-meta">
+              <span class="product-price">$${p.price.toFixed(2)}</span>
+              <span class="product-rating">★ ${p.rating}</span>
+            </div>
+            <div class="product-controls">
+              <div class="qty-stepper" data-id="${p.id}">
+                <button type="button" class="qty-minus" aria-label="Decrease quantity">&minus;</button>
+                <span class="qty-value">1</span>
+                <button type="button" class="qty-plus" aria-label="Increase quantity">&plus;</button>
+              </div>
+              <button type="button" class="add-to-cart" data-id="${p.id}">Add to cart</button>
+            </div>
+          </div>
+        </article>
+      `).join("");
+    }
+    document.addEventListener("click", (e) => {
+      const stepper = e.target.closest(".qty-stepper");
+      if (!stepper) return;
+      const valueEl = stepper.querySelector(".qty-value");
+      let val = parseInt(valueEl.textContent, 10);
+      if (e.target.classList.contains("qty-plus")) val = Math.min(val + 1, 99);
+      if (e.target.classList.contains("qty-minus")) val = Math.max(val - 1, 1);
+      valueEl.textContent = val;
+    });
+    const CART_KEY = "amazeon_cart";
+    let cart = loadCart();
+    function loadCart() { try { return JSON.parse(localStorage.getItem(CART_KEY)) || {}; } catch (err) { return {}; } }
+    function saveCart() { localStorage.setItem(CART_KEY, JSON.stringify(cart)); }
+    function addToCart(id, qty) { cart[id] = (cart[id] || 0) + qty; saveCart(); renderCart(); }
+    function setQty(id, qty) { if (qty <= 0) { delete cart[id]; } else { cart[id] = qty; } saveCart(); renderCart(); }
+    function removeFromCart(id) { delete cart[id]; saveCart(); renderCart(); }
+    function cartCount() { return Object.values(cart).reduce((sum, q) => sum + q, 0); }
+    function cartSubtotal() {
+      return Object.entries(cart).reduce((sum, [id, q]) => {
+        const product = PRODUCTS.find(p => p.id === id);
+        return product ? sum + product.price * q : sum;
+      }, 0);
+    }
+    const cartItemsEl = document.getElementById("cart-items");
+    const cartCountEl = document.getElementById("cart-count");
+    const cartSubtotalEl = document.getElementById("cart-subtotal");
+    function renderCart() {
+      cartCountEl.textContent = cartCount();
+      const entries = Object.entries(cart);
+      if (entries.length === 0) {
+        cartItemsEl.innerHTML = `<p class="cart-empty">Your cart is empty. Add something amazing.</p>`;
+      } else {
+        cartItemsEl.innerHTML = entries.map(([id, qty]) => {
+          const product = PRODUCTS.find(p => p.id === id);
+          if (!product) return "";
+          const lineTotal = (product.price * qty).toFixed(2);
+          return `
+            <div class="cart-item" data-id="${id}">
+              <div class="cart-item-thumb">
+                <img src="${product.img}" alt="${product.name}" onerror="this.style.display='none'; this.parentElement.textContent='Photo';">
+              </div>
+              <div class="cart-item-info">
+                <span class="name">${product.name}</span>
+                <span class="unit-price">$${product.price.toFixed(2)} each</span>
+                <div class="cart-item-row">
+                  <div class="cart-item-qty">
+                    <button type="button" class="cart-qty-minus" aria-label="Decrease quantity">&minus;</button>
+                    <span>${qty}</span>
+                    <button type="button" class="cart-qty-plus" aria-label="Increase quantity">&plus;</button>
+                  </div>
+                  <span class="line-total">$${lineTotal}</span>
+                </div>
+                <button type="button" class="remove-item">Remove</button>
+              </div>
+            </div>
+          `;
+        }).join("");
+      }
+      cartSubtotalEl.textContent = `$${cartSubtotal().toFixed(2)}`;
+    }
+    grid.addEventListener("click", (e) => {
+      const btn = e.target.closest(".add-to-cart");
+      if (!btn) return;
+      const id = btn.dataset.id;
+      const card = btn.closest(".product-card");
+      const qty = parseInt(card.querySelector(".qty-value").textContent, 10);
+      addToCart(id, qty);
+      btn.textContent = "Added ✓";
+      btn.classList.add("just-added");
+      setTimeout(() => { btn.textContent = "Add to cart"; btn.classList.remove("just-added"); }, 1200);
+    });
+    cartItemsEl.addEventListener("click", (e) => {
+      const itemEl = e.target.closest(".cart-item");
+      if (!itemEl) return;
+      const id = itemEl.dataset.id;
+      const currentQty = cart[id] || 0;
+      if (e.target.classList.contains("cart-qty-plus")) { setQty(id, currentQty + 1); }
+      else if (e.target.classList.contains("cart-qty-minus")) { setQty(id, currentQty - 1); }
+      else if (e.target.classList.contains("remove-item")) { removeFromCart(id); }
+    });
+    const cartDrawer = document.getElementById("cart-drawer");
+    const cartOverlay = document.getElementById("cart-overlay");
+    const cartToggle = document.getElementById("cart-toggle");
+    const cartClose = document.getElementById("cart-close");
+    function openCart() { cartDrawer.classList.add("open"); cartOverlay.classList.add("open"); }
+    function closeCart() { cartDrawer.classList.remove("open"); cartOverlay.classList.remove("open"); }
+    cartToggle.addEventListener("click", openCart);
+    cartClose.addEventListener("click", closeCart);
+    cartOverlay.addEventListener("click", closeCart);
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeCart(); });
+    document.getElementById("checkout-btn").addEventListener("click", () => {
+      if (cartCount() === 0) { alert("Your cart is empty — add a product first."); return; }
+      alert(`Checkout total: $${cartSubtotal().toFixed(2)}\n(Connect this button to your real checkout page.)`);
+    });
+    document.getElementById("search-form").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const term = document.getElementById("search-input").value.trim().toLowerCase();
+      document.querySelectorAll(".product-card").forEach(card => {
+        const text = card.textContent.toLowerCase();
+        card.style.display = text.includes(term) ? "" : "none";
+      });
+    });
+    const loggedOutView = document.getElementById("logged-out-view");
+    const loggedInView = document.getElementById("logged-in-view");
+    const userNameSlot = document.getElementById("user-name-slot");
+    function renderAccountState() {
+      const user = localStorage.getItem("amazeon_user");
+      if (user) { loggedOutView.style.display = "none"; loggedInView.style.display = "flex"; userNameSlot.textContent = user; }
+      else { loggedOutView.style.display = "flex"; loggedInView.style.display = "none"; }
+    }
+    document.getElementById("logout-btn").addEventListener("click", () => { localStorage.removeItem("amazeon_user"); renderAccountState(); });
+    renderProducts();
+    renderCart();
+    renderAccountState();
+    </script>
+
+    </body>
+    </html>
+- path: style.css
+  description: Shared stylesheet for login.html and signup.html
+  content: |
+    (see style.css file already delivered — identical content)
