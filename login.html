@@ -20,7 +20,7 @@
         <div class="login-card">
             <h1>Sign in</h1>
 
-            <form action="index.html" method="POST">
+            <form id="login-form">
                 <div class="form-group">
                     <label for="email">Email or mobile phone number</label>
                     <input type="email" id="email" name="email" placeholder="Enter your email" required autocomplete="email">
@@ -44,6 +44,28 @@
             <a href="signup.html" class="btn-secondary">Create your amaze-on account</a>
         </div>
     </main>
+
+    <script>
+        /* ------------------------------------------------------------------ */
+        /* This is a static front-end demo with no backend, so the form must  */
+        /* NOT submit via a real HTTP POST (that returns 405 on static hosts   */
+        /* like GitHub Pages). Instead we intercept submit, "log the user in"  */
+        /* by saving their name to localStorage, then redirect with a normal   */
+        /* GET navigation that index.html reads on load.                      */
+        /* ------------------------------------------------------------------ */
+        document.getElementById("login-form").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const email = document.getElementById("email").value.trim();
+            if (!email) return;
+
+            // Use the part before "@" as a friendly display name.
+            const displayName = email.includes("@") ? email.split("@")[0] : email;
+
+            localStorage.setItem("amazeon_user", displayName);
+            window.location.href = "index.html";
+        });
+    </script>
 
 </body>
 </html>
