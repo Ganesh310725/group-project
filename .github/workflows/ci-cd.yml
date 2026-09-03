@@ -1,194 +1,1330 @@
-site:
-  name: "amaze-on"
-  title: "amaze-on — search & shop"
-  language: "en"
-  theme:
-    primary: "#262b5c"
-    secondary: "#ffb020"
-    background: "#ffffff"
-    surface: "#f2f3f8"
-    text: "#20222c"
-    muted: "#6b6f85"
-
-header:
-  logo:
-    text: "amaze"
-    suffix: "-on"
-    suffix_color: "#ffb020"
-
-  search:
-    enabled: true
-    placeholder: "Search amaze-on for anything..."
-    role: "search"
-    behavior: "filter-products"
-
-  account:
-    logged_out:
-      visible: true
-      button:
-        text: "Log in"
-        href: "login.html"
-
-    logged_in:
-      visible: false
-      greeting: "Hi, {user}"
-      logout_text: "Log out"
-      storage_key: "amazeon_user"
-
-  cart:
-    enabled: true
-    label: "Cart"
-    storage_key: "amazeon_cart"
-    drawer:
-      width: "400px"
-      max_width: "92vw"
-      overlay: true
-      close_on_escape: true
-
-tagline:
-  text: "Search it, add it, amaze yourself with how fast it shows up."
-  emphasized_word: "amaze"
-
-products:
-  layout:
-    columns:
-      desktop: 3
-      tablet: 2
-      mobile: 1
-    gap: "26px"
-    max_width: "1180px"
-
-  catalog:
-    - id: "p1"
-      name: "Cloudstep Running Shoes"
-      description: "Lightweight everyday trainers with breathable mesh and cushioned soles."
-      price: 59.99
-      rating: "4.5 (2,301)"
-
-    - id: "p2"
-      name: "AuraBrew Coffee Maker"
-      description: "12-cup drip machine with a built-in grinder and keep-warm plate."
-      price: 74.50
-      rating: "4.3 (958)"
-
-    - id: "p3"
-      name: "Nomad 20L Backpack"
-      description: "Water-resistant daypack with a padded laptop sleeve and side pockets."
-      price: 42.00
-      rating: "4.6 (1,477)"
-
-    - id: "p4"
-      name: "Lumen Desk Lamp"
-      description: "Adjustable LED lamp with three brightness levels and USB charging port."
-      price: 28.99
-      rating: "4.4 (612)"
-
-    - id: "p5"
-      name: "EchoSound Earbuds"
-      description: "True wireless earbuds with active noise cancellation and 24-hour battery."
-      price: 89.00
-      rating: "4.2 (3,140)"
-
-    - id: "p6"
-      name: "Terra Cast Iron Pan"
-      description: "Pre-seasoned 12-inch skillet built for stovetop, oven, or campfire."
-      price: 35.75
-      rating: "4.7 (2,005)"
-
-    - id: "p7"
-      name: "Flexi Yoga Mat"
-      description: "Non-slip 6mm mat with carry strap, ideal for yoga, pilates, or stretching."
-      price: 24.99
-      rating: "4.5 (874)"
-
-    - id: "p8"
-      name: "Pulse Fitness Tracker"
-      description: "Tracks steps, heart rate, and sleep with a 10-day battery life."
-      price: 49.99
-      rating: "4.1 (1,690)"
-
-    - id: "p9"
-      name: "Hearth Ceramic Mug Set"
-      description: "Set of 4 stoneware mugs, dishwasher and microwave safe."
-      price: 19.50
-      rating: "4.8 (536)"
-
-cart:
-  initial_state: {}
-
-  behavior:
-    add_product: true
-    remove_product: true
-    update_quantity: true
-    minimum_quantity: 1
-    maximum_quantity: 99
-    persist_to_local_storage: true
-
-  display:
-    show_item_count: true
-    show_unit_price: true
-    show_line_total: true
-    show_subtotal: true
-
-  checkout:
-    enabled: true
-    empty_cart_message: "Your cart is empty — add a product first."
-    placeholder_action: "Show checkout total"
-    currency: "USD"
-
-search:
-  enabled: true
-  search_fields:
-    - "name"
-    - "description"
-  case_sensitive: false
-  behavior: "hide-nonmatching-products"
-
-authentication:
-  storage_key: "amazeon_user"
-
-  login:
-    page: "login.html"
-    on_success:
-      save_user_to_local_storage: true
-      redirect_to: "index.html"
-
-  logout:
-    remove_user_from_local_storage: true
-
-storage:
-  cart_key: "amazeon_cart"
-  user_key: "amazeon_user"
-
-accessibility:
-  search_label: "Search products"
-  cart_role: "dialog"
-  cart_aria_modal: true
-  cart_aria_label: "Your cart"
-  close_cart_aria_label: "Close cart"
-  keyboard:
-    escape_closes_cart: true
-  focus_outline: true
-
-responsive:
-  breakpoints:
-    tablet: "980px"
-    mobile: "720px"
-
-  tablet:
-    product_columns: 2
-
-  mobile:
-    product_columns: 1
-    header_wrap: true
-    search_full_width: true
-    hide_account_greeting: true
-
-animations:
-  transitions: true
-  reduced_motion_support: true
-
+project: amaze-on
+description: 'Updated static demo marketplace bundle: homepage + sign-in/sign-up pages (405 fix applied), bundled as one manifest.'
 files:
-  html: "index.html"
-  css: "styles.css"
-  login: "login.html"
+- path: index.html
+  description: 'Marketplace homepage: search bar, product grid, cart drawer, login-state header'
+  content: |
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>amaze-on — search &amp; shop</title>
+    <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+
+    <header class="site-header">
+      <a href="index.html" class="logo">amaze<span>-on</span></a>
+
+      <form class="search-form" role="search" id="search-form">
+        <label for="search-input" class="visually-hidden">Search products</label>
+        <input type="search" id="search-input" name="q" placeholder="Search amaze-on for anything...">
+        <button type="submit">Search</button>
+      </form>
+
+      <div class="header-actions">
+
+        <!-- Logged-out state: link to your existing login.html -->
+        <div class="account-area" id="logged-out-view">
+          <a class="btn-link" href="login.html">Log in</a>
+        </div>
+
+        <!-- Logged-in state: shown after login.html sets localStorage("amazeon_user") -->
+        <div class="account-area" id="logged-in-view" style="display:none;">
+          <div class="account-greeting">
+            <strong>Hi, <span id="user-name-slot">there</span></strong>
+            <button class="btn-text" id="logout-btn" type="button">Log out</button>
+          </div>
+        </div>
+
+        <button class="cart-toggle" id="cart-toggle" type="button" aria-haspopup="dialog" aria-controls="cart-drawer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h3l2.6 13.4a2 2 0 0 0 2 1.6h9.8a2 2 0 0 0 2-1.6L23 6H6"></path>
+          </svg>
+          Cart
+          <span class="cart-count" id="cart-count">0</span>
+        </button>
+      </div>
+    </header>
+
+    <div class="tagline">
+      <p>Search it, add it, <em>amaze</em> yourself with how fast it shows up.</p>
+    </div>
+
+    <main>
+      <p class="results-heading">Showing <strong>9</strong> products</p>
+
+      <div class="product-grid" id="product-grid">
+        <!-- Product cards are rendered by the script below from the PRODUCTS array -->
+      </div>
+    </main>
+
+    <!-- Cart drawer -->
+    <div class="cart-overlay" id="cart-overlay"></div>
+    <aside class="cart-drawer" id="cart-drawer" role="dialog" aria-modal="true" aria-labelledby="cart-heading">
+      <div class="cart-drawer-header">
+        <h2 id="cart-heading">Your cart</h2>
+        <button class="cart-close" id="cart-close" type="button" aria-label="Close cart">&times;</button>
+      </div>
+      <div class="cart-items" id="cart-items">
+        <p class="cart-empty">Your cart is empty. Add something amazing.</p>
+      </div>
+      <div class="cart-drawer-footer">
+        <div class="cart-subtotal">
+          <span>Subtotal</span>
+          <strong id="cart-subtotal">$0.00</strong>
+        </div>
+        <button class="checkout-btn" id="checkout-btn" type="button">Checkout</button>
+      </div>
+    </aside>
+
+    <script>
+    /* ------------------------------------------------------------------ */
+    /* Product catalog — 3 rows x 3 columns                                */
+    /* "img" points at the .webp files sitting next to this HTML file.    */
+    /* ------------------------------------------------------------------ */
+    const PRODUCTS = [
+      { id: "p1", name: "Cloudstep Running Shoes", desc: "Lightweight everyday trainers with breathable mesh and cushioned soles.", price: 59.99, rating: "4.5 (2,301)", img: "1.webp" },
+      { id: "p2", name: "AuraBrew Coffee Maker", desc: "12-cup drip machine with a built-in grinder and keep-warm plate.", price: 74.50, rating: "4.3 (958)", img: "2.webp" },
+      { id: "p3", name: "Nomad 20L Backpack", desc: "Water-resistant daypack with a padded laptop sleeve and side pockets.", price: 42.00, rating: "4.6 (1,477)", img: "3.webp" },
+      { id: "p4", name: "Lumen Desk Lamp", desc: "Adjustable LED lamp with three brightness levels and USB charging port.", price: 28.99, rating: "4.4 (612)", img: "4.webp" },
+      { id: "p5", name: "EchoSound Earbuds", desc: "True wireless earbuds with active noise cancellation and 24-hour battery.", price: 89.00, rating: "4.2 (3,140)", img: "5.webp" },
+      { id: "p6", name: "Terra Cast Iron Pan", desc: "Pre-seasoned 12-inch skillet built for stovetop, oven, or campfire.", price: 35.75, rating: "4.7 (2,005)", img: "6.webp" },
+      { id: "p7", name: "Flexi Yoga Mat", desc: "Non-slip 6mm mat with carry strap, ideal for yoga, pilates, or stretching.", price: 24.99, rating: "4.5 (874)", img: "7.webp" },
+      { id: "p8", name: "Pulse Fitness Tracker", desc: "Tracks steps, heart rate, and sleep with a 10-day battery life.", price: 49.99, rating: "4.1 (1,690)", img: "8.webp" },
+      { id: "p9", name: "Hearth Ceramic Mug Set", desc: "Set of 4 stoneware mugs, dishwasher and microwave safe.", price: 19.50, rating: "4.8 (536)", img: "9.webp" },
+    ];
+
+    /* ------------------------------------------------------------------ */
+    /* Rendering: product grid                                             */
+    /* ------------------------------------------------------------------ */
+    const grid = document.getElementById("product-grid");
+
+    function photoPlaceholderSVG() {
+      return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <rect x="3" y="4" width="18" height="16" rx="2"></rect>
+        <circle cx="8.5" cy="9.5" r="1.5"></circle>
+        <path d="M21 15l-5-5-11 11"></path>
+      </svg>`;
+    }
+
+    function renderProducts() {
+      grid.innerHTML = PRODUCTS.map(p => `
+        <article class="product-card" data-id="${p.id}">
+          <div class="product-photo">
+            <img
+              src="${p.img}"
+              alt="${p.name}"
+              loading="lazy"
+              onerror="this.replaceWith(Object.assign(document.createElement('div'), { className: 'photo-fallback', innerHTML: \`${photoPlaceholderSVG()}<span>Photo of<br>${p.name}</span>\` }))"
+            >
+          </div>
+          <div class="product-body">
+            <h3 class="product-name">${p.name}</h3>
+            <p class="product-desc">${p.desc}</p>
+            <div class="product-meta">
+              <span class="product-price">$${p.price.toFixed(2)}</span>
+              <span class="product-rating">★ ${p.rating}</span>
+            </div>
+            <div class="product-controls">
+              <div class="qty-stepper" data-id="${p.id}">
+                <button type="button" class="qty-minus" aria-label="Decrease quantity">&minus;</button>
+                <span class="qty-value">1</span>
+                <button type="button" class="qty-plus" aria-label="Increase quantity">&plus;</button>
+              </div>
+              <button type="button" class="add-to-cart" data-id="${p.id}">Add to cart</button>
+            </div>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    /* ------------------------------------------------------------------ */
+    /* Quantity steppers on each card (pre-add-to-cart quantity picker)    */
+    /* ------------------------------------------------------------------ */
+    document.addEventListener("click", (e) => {
+      const stepper = e.target.closest(".qty-stepper");
+      if (!stepper) return;
+      const valueEl = stepper.querySelector(".qty-value");
+      let val = parseInt(valueEl.textContent, 10);
+      if (e.target.classList.contains("qty-plus")) val = Math.min(val + 1, 99);
+      if (e.target.classList.contains("qty-minus")) val = Math.max(val - 1, 1);
+      valueEl.textContent = val;
+    });
+
+    /* ------------------------------------------------------------------ */
+    /* Cart state                                                          */
+    /* ------------------------------------------------------------------ */
+    const CART_KEY = "amazeon_cart";
+    let cart = loadCart();
+
+    function loadCart() {
+      try {
+        return JSON.parse(localStorage.getItem(CART_KEY)) || {};
+      } catch (err) {
+        return {};
+      }
+    }
+
+    function saveCart() {
+      localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    }
+
+    function addToCart(id, qty) {
+      cart[id] = (cart[id] || 0) + qty;
+      saveCart();
+      renderCart();
+    }
+
+    function setQty(id, qty) {
+      if (qty <= 0) {
+        delete cart[id];
+      } else {
+        cart[id] = qty;
+      }
+      saveCart();
+      renderCart();
+    }
+
+    function removeFromCart(id) {
+      delete cart[id];
+      saveCart();
+      renderCart();
+    }
+
+    function cartCount() {
+      return Object.values(cart).reduce((sum, q) => sum + q, 0);
+    }
+
+    function cartSubtotal() {
+      return Object.entries(cart).reduce((sum, [id, q]) => {
+        const product = PRODUCTS.find(p => p.id === id);
+        return product ? sum + product.price * q : sum;
+      }, 0);
+    }
+
+    const cartItemsEl = document.getElementById("cart-items");
+    const cartCountEl = document.getElementById("cart-count");
+    const cartSubtotalEl = document.getElementById("cart-subtotal");
+
+    function renderCart() {
+      cartCountEl.textContent = cartCount();
+
+      const entries = Object.entries(cart);
+      if (entries.length === 0) {
+        cartItemsEl.innerHTML = `<p class="cart-empty">Your cart is empty. Add something amazing.</p>`;
+      } else {
+        cartItemsEl.innerHTML = entries.map(([id, qty]) => {
+          const product = PRODUCTS.find(p => p.id === id);
+          if (!product) return "";
+          const lineTotal = (product.price * qty).toFixed(2);
+          return `
+            <div class="cart-item" data-id="${id}">
+              <div class="cart-item-thumb">
+                <img src="${product.img}" alt="${product.name}" onerror="this.style.display='none'; this.parentElement.textContent='Photo';">
+              </div>
+              <div class="cart-item-info">
+                <span class="name">${product.name}</span>
+                <span class="unit-price">$${product.price.toFixed(2)} each</span>
+                <div class="cart-item-row">
+                  <div class="cart-item-qty">
+                    <button type="button" class="cart-qty-minus" aria-label="Decrease quantity">&minus;</button>
+                    <span>${qty}</span>
+                    <button type="button" class="cart-qty-plus" aria-label="Increase quantity">&plus;</button>
+                  </div>
+                  <span class="line-total">$${lineTotal}</span>
+                </div>
+                <button type="button" class="remove-item">Remove</button>
+              </div>
+            </div>
+          `;
+        }).join("");
+      }
+
+      cartSubtotalEl.textContent = `$${cartSubtotal().toFixed(2)}`;
+    }
+
+    /* Add-to-cart button clicks */
+    grid.addEventListener("click", (e) => {
+      const btn = e.target.closest(".add-to-cart");
+      if (!btn) return;
+      const id = btn.dataset.id;
+      const card = btn.closest(".product-card");
+      const qty = parseInt(card.querySelector(".qty-value").textContent, 10);
+      addToCart(id, qty);
+
+      btn.textContent = "Added ✓";
+      btn.classList.add("just-added");
+      setTimeout(() => {
+        btn.textContent = "Add to cart";
+        btn.classList.remove("just-added");
+      }, 1200);
+    });
+
+    /* Cart drawer item quantity / remove clicks */
+    cartItemsEl.addEventListener("click", (e) => {
+      const itemEl = e.target.closest(".cart-item");
+      if (!itemEl) return;
+      const id = itemEl.dataset.id;
+      const currentQty = cart[id] || 0;
+
+      if (e.target.classList.contains("cart-qty-plus")) {
+        setQty(id, currentQty + 1);
+      } else if (e.target.classList.contains("cart-qty-minus")) {
+        setQty(id, currentQty - 1);
+      } else if (e.target.classList.contains("remove-item")) {
+        removeFromCart(id);
+      }
+    });
+
+    /* ------------------------------------------------------------------ */
+    /* Cart drawer open/close                                              */
+    /* ------------------------------------------------------------------ */
+    const cartDrawer = document.getElementById("cart-drawer");
+    const cartOverlay = document.getElementById("cart-overlay");
+    const cartToggle = document.getElementById("cart-toggle");
+    const cartClose = document.getElementById("cart-close");
+
+    function openCart() {
+      cartDrawer.classList.add("open");
+      cartOverlay.classList.add("open");
+    }
+    function closeCart() {
+      cartDrawer.classList.remove("open");
+      cartOverlay.classList.remove("open");
+    }
+
+    cartToggle.addEventListener("click", openCart);
+    cartClose.addEventListener("click", closeCart);
+    cartOverlay.addEventListener("click", closeCart);
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeCart();
+    });
+
+    document.getElementById("checkout-btn").addEventListener("click", () => {
+      if (cartCount() === 0) {
+        alert("Your cart is empty — add a product first.");
+        return;
+      }
+      alert(`Checkout total: $${cartSubtotal().toFixed(2)}\n(Connect this button to your real checkout page.)`);
+    });
+
+    /* ------------------------------------------------------------------ */
+    /* Search bar — filters the grid by product name/description          */
+    /* ------------------------------------------------------------------ */
+    document.getElementById("search-form").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const term = document.getElementById("search-input").value.trim().toLowerCase();
+      document.querySelectorAll(".product-card").forEach(card => {
+        const text = card.textContent.toLowerCase();
+        card.style.display = text.includes(term) ? "" : "none";
+      });
+    });
+
+    /* ------------------------------------------------------------------ */
+    /* Login state                                                         */
+    /* Your login.html should run, on successful login:                    */
+    /*   localStorage.setItem("amazeon_user", "<the person's name>");      */
+    /*   then redirect back to index.html                                  */
+    /* ------------------------------------------------------------------ */
+    const loggedOutView = document.getElementById("logged-out-view");
+    const loggedInView = document.getElementById("logged-in-view");
+    const userNameSlot = document.getElementById("user-name-slot");
+
+    function renderAccountState() {
+      const user = localStorage.getItem("amazeon_user");
+      if (user) {
+        loggedOutView.style.display = "none";
+        loggedInView.style.display = "flex";
+        userNameSlot.textContent = user;
+      } else {
+        loggedOutView.style.display = "flex";
+        loggedInView.style.display = "none";
+      }
+    }
+
+    document.getElementById("logout-btn").addEventListener("click", () => {
+      localStorage.removeItem("amazeon_user");
+      renderAccountState();
+    });
+
+    /* ------------------------------------------------------------------ */
+    /* Init                                                                 */
+    /* ------------------------------------------------------------------ */
+    renderProducts();
+    renderCart();
+    renderAccountState();
+    </script>
+
+    </body>
+    </html>
+- path: styles.css
+  description: Stylesheet for the marketplace homepage (index.html)
+  content: |
+    /* ==========================================================================
+       Amaze-on — marketplace stylesheet
+       ========================================================================== */
+
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+    :root {
+      --ink: #171a2e;
+      --indigo: #262b5c;
+      --indigo-light: #363c82;
+      --amber: #ffb020;
+      --amber-dark: #d99000;
+      --paper: #ffffff;
+      --surface: #f2f3f8;
+      --line: #e1e3ee;
+      --text: #20222c;
+      --muted: #6b6f85;
+      --success: #1e8e5a;
+      --danger: #c94a3f;
+
+      --radius-s: 6px;
+      --radius-m: 10px;
+      --shadow-drawer: -12px 0 30px rgba(23, 26, 46, 0.18);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, sans-serif;
+      color: var(--text);
+      background: var(--paper);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--amber-dark);
+      outline-offset: 2px;
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px; height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+    }
+
+    /* ---------------------------------------------------------------------- */
+    /* Header                                                                  */
+    /* ---------------------------------------------------------------------- */
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 14px 28px;
+      background: var(--indigo);
+      border-bottom: 3px solid var(--amber);
+    }
+
+    .logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.55rem;
+      color: var(--paper);
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .logo span { color: var(--amber); }
+
+    .search-form {
+      flex: 1 1 auto;
+      max-width: 640px;
+      display: flex;
+      margin: 0 auto;
+    }
+
+    .search-form input[type="search"] {
+      flex: 1;
+      padding: 11px 16px;
+      font-size: 0.98rem;
+      border: none;
+      border-radius: var(--radius-m) 0 0 var(--radius-m);
+      background: var(--paper);
+      color: var(--text);
+    }
+
+    .search-form input[type="search"]::placeholder {
+      color: var(--muted);
+    }
+
+    .search-form button {
+      padding: 0 20px;
+      border: none;
+      border-radius: 0 var(--radius-m) var(--radius-m) 0;
+      background: var(--amber);
+      color: var(--ink);
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: background 0.15s ease;
+    }
+
+    .search-form button:hover { background: var(--amber-dark); }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex-shrink: 0;
+    }
+
+    .account-area {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+      color: var(--paper);
+    }
+
+    .account-greeting {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.25;
+    }
+
+    .account-greeting strong {
+      font-size: 0.92rem;
+    }
+
+    .account-greeting small {
+      color: #c7c9de;
+      font-size: 0.75rem;
+    }
+
+    .btn-link {
+      background: none;
+      border: 1px solid rgba(255,255,255,0.4);
+      color: var(--paper);
+      padding: 8px 16px;
+      border-radius: var(--radius-s);
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: border-color 0.15s ease, background 0.15s ease;
+      display: inline-block;
+    }
+
+    .btn-link:hover {
+      border-color: var(--amber);
+      background: rgba(255, 176, 32, 0.1);
+    }
+
+    .btn-text {
+      background: none;
+      border: none;
+      color: #c7c9de;
+      font-size: 0.8rem;
+      text-decoration: underline;
+      padding: 0;
+    }
+
+    .btn-text:hover { color: var(--paper); }
+
+    .cart-toggle {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: var(--paper);
+      padding: 9px 16px;
+      border-radius: var(--radius-s);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: background 0.15s ease;
+    }
+
+    .cart-toggle:hover { background: rgba(255,255,255,0.16); }
+
+    .cart-toggle svg { width: 20px; height: 20px; flex-shrink: 0; }
+
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      min-width: 20px;
+      height: 20px;
+      padding: 0 4px;
+      border-radius: 999px;
+      background: var(--amber);
+      color: var(--ink);
+      font-size: 0.72rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ---------------------------------------------------------------------- */
+    /* Tagline strip                                                          */
+    /* ---------------------------------------------------------------------- */
+
+    .tagline {
+      padding: 22px 28px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .tagline p {
+      margin: 0;
+      max-width: 900px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+
+    .tagline p em {
+      font-style: normal;
+      color: var(--indigo-light);
+    }
+
+    main { padding: 32px 28px 80px; }
+
+    .results-heading {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin: 0 0 18px;
+      font-weight: 500;
+    }
+
+    .results-heading strong { color: var(--text); }
+
+    /* ---------------------------------------------------------------------- */
+    /* Product grid                                                            */
+    /* ---------------------------------------------------------------------- */
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 26px;
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    .product-card {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-m);
+      background: var(--paper);
+      overflow: hidden;
+      transition: border-color 0.15s ease;
+    }
+
+    .product-card:hover {
+      border-color: var(--indigo-light);
+    }
+
+    .product-photo {
+      aspect-ratio: 4 / 3;
+      background: var(--surface);
+      border-bottom: 1px solid var(--line);
+      overflow: hidden;
+    }
+
+    /* Real product photo — fills the box and crops to fit */
+    .product-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Fallback shown automatically if a .webp file fails to load */
+    .photo-fallback {
+      width: 100%;
+      height: 100%;
+      background:
+        repeating-linear-gradient(135deg, var(--surface), var(--surface) 10px, #eaecf5 10px, #eaecf5 20px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 0.8rem;
+      text-align: center;
+      gap: 6px;
+      flex-direction: column;
+    }
+
+    .photo-fallback svg {
+      width: 34px;
+      height: 34px;
+      opacity: 0.55;
+    }
+
+    .product-body {
+      padding: 16px 18px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+    }
+
+    .product-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin: 0;
+      color: var(--ink);
+    }
+
+    .product-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin: 0;
+      line-height: 1.45;
+      flex: 1;
+    }
+
+    .product-meta {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-top: 4px;
+    }
+
+    .product-price {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .product-rating {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .product-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .qty-stepper {
+      display: flex;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-s);
+      overflow: hidden;
+    }
+
+    .qty-stepper button {
+      width: 30px;
+      height: 34px;
+      border: none;
+      background: var(--surface);
+      color: var(--text);
+      font-size: 1rem;
+      line-height: 1;
+    }
+
+    .qty-stepper button:hover { background: var(--line); }
+
+    .qty-stepper .qty-value {
+      width: 30px;
+      text-align: center;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .add-to-cart {
+      flex: 1;
+      padding: 9px 14px;
+      border: none;
+      border-radius: var(--radius-s);
+      background: var(--amber);
+      color: var(--ink);
+      font-weight: 600;
+      font-size: 0.88rem;
+      transition: background 0.15s ease, transform 0.1s ease;
+    }
+
+    .add-to-cart:hover { background: var(--amber-dark); }
+
+    .add-to-cart:active { transform: scale(0.97); }
+
+    .add-to-cart.just-added {
+      background: var(--success);
+      color: var(--paper);
+    }
+
+    /* ---------------------------------------------------------------------- */
+    /* Cart drawer                                                             */
+    /* ---------------------------------------------------------------------- */
+
+    .cart-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(23, 26, 46, 0.45);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+      z-index: 40;
+    }
+
+    .cart-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .cart-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      height: 100%;
+      width: 400px;
+      max-width: 92vw;
+      background: var(--paper);
+      box-shadow: var(--shadow-drawer);
+      z-index: 50;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(100%);
+      transition: transform 0.25s ease;
+    }
+
+    .cart-drawer.open { transform: translateX(0); }
+
+    .cart-drawer-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .cart-drawer-header h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.15rem;
+      margin: 0;
+    }
+
+    .cart-close {
+      background: none;
+      border: none;
+      font-size: 1.3rem;
+      line-height: 1;
+      color: var(--muted);
+      padding: 4px;
+    }
+
+    .cart-close:hover { color: var(--text); }
+
+    .cart-items {
+      flex: 1;
+      overflow-y: auto;
+      padding: 8px 20px;
+    }
+
+    .cart-empty {
+      color: var(--muted);
+      font-size: 0.92rem;
+      text-align: center;
+      margin-top: 60px;
+    }
+
+    .cart-item {
+      display: flex;
+      gap: 12px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .cart-item-thumb {
+      width: 56px;
+      height: 56px;
+      flex-shrink: 0;
+      border-radius: var(--radius-s);
+      background: var(--surface);
+      border: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 0.65rem;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .cart-item-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .cart-item-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .cart-item-info .name {
+      font-weight: 600;
+      font-size: 0.92rem;
+    }
+
+    .cart-item-info .unit-price {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .cart-item-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 4px;
+    }
+
+    .cart-item-qty {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+    }
+
+    .cart-item-qty button {
+      width: 22px;
+      height: 22px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      border-radius: 4px;
+      font-size: 0.85rem;
+      line-height: 1;
+    }
+
+    .remove-item {
+      background: none;
+      border: none;
+      color: var(--danger);
+      font-size: 0.78rem;
+      text-decoration: underline;
+    }
+
+    .line-total {
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .cart-drawer-footer {
+      padding: 18px 20px 22px;
+      border-top: 1px solid var(--line);
+    }
+
+    .cart-subtotal {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1rem;
+      margin-bottom: 14px;
+    }
+
+    .cart-subtotal strong { font-family: 'Space Grotesk', sans-serif; }
+
+    .checkout-btn {
+      width: 100%;
+      padding: 13px;
+      border: none;
+      border-radius: var(--radius-s);
+      background: var(--indigo);
+      color: var(--paper);
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: background 0.15s ease;
+    }
+
+    .checkout-btn:hover { background: var(--indigo-light); }
+
+    /* ---------------------------------------------------------------------- */
+    /* Responsive                                                              */
+    /* ---------------------------------------------------------------------- */
+
+    @media (max-width: 980px) {
+      .product-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 720px) {
+      .site-header { flex-wrap: wrap; padding: 12px 16px; }
+      .search-form { order: 3; max-width: none; width: 100%; }
+      .account-greeting { display: none; }
+      .product-grid { grid-template-columns: 1fr; }
+      main { padding: 24px 16px 60px; }
+      .tagline { padding: 18px 16px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; scroll-behavior: auto !important; }
+    }
+- path: login.html
+  description: 'Sign-in page — fixed: JS-based submit (no raw POST), avoids the 405 error'
+  content: |
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+        <title>Sign in | amaze-on</title>
+    </head>
+    <body>
+
+        <!-- Amaze-on Navbar Header -->
+        <header class="navbar">
+            <div class="logo">
+                amaze<span>-on</span>
+            </div>
+        </header>
+
+        <!-- Centered Card Container -->
+        <main class="login-wrapper">
+            <div class="login-card">
+                <h1>Sign in</h1>
+
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="email">Email or mobile phone number</label>
+                        <input type="email" id="email" name="email" placeholder="Enter your email" required autocomplete="email">
+                    </div>
+
+                    <div class="form-group">
+                        <div class="label-row">
+                            <label for="password">Password</label>
+                            <a href="#" class="forgot-link">Forgot your password?</a>
+                        </div>
+                        <input type="password" id="password" name="password" placeholder="Enter your password" required autocomplete="current-password">
+                    </div>
+
+                    <button type="submit" class="btn-primary">Sign in</button>
+                </form>
+
+                <div class="divider">
+                    <span>New to amaze-on?</span>
+                </div>
+
+                <a href="signup.html" class="btn-secondary">Create your amaze-on account</a>
+            </div>
+        </main>
+
+        <script>
+            /* ------------------------------------------------------------------ */
+            /* This is a static front-end demo with no backend, so the form must  */
+            /* NOT submit via a real HTTP POST (that returns 405 on static hosts   */
+            /* like GitHub Pages). Instead we intercept submit, "log the user in"  */
+            /* by saving their name to localStorage, then redirect with a normal   */
+            /* GET navigation that index.html reads on load.                      */
+            /* ------------------------------------------------------------------ */
+            document.getElementById("login-form").addEventListener("submit", function (e) {
+                e.preventDefault();
+
+                const email = document.getElementById("email").value.trim();
+                if (!email) return;
+
+                // Use the part before "@" as a friendly display name.
+                const displayName = email.includes("@") ? email.split("@")[0] : email;
+
+                localStorage.setItem("amazeon_user", displayName);
+                window.location.href = "index.html";
+            });
+        </script>
+
+    </body>
+    </html>
+- path: signup.html
+  description: 'Create-account page — fixed: JS-based submit (no raw POST), avoids the 405 error, validates matching passwords'
+  content: |
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+        <title>Create Account | amaze-on</title>
+    </head>
+    <body>
+
+        <header class="navbar">
+            <div class="logo">
+                amaze<span>-on</span>
+            </div>
+        </header>
+
+        <main class="login-wrapper">
+            <div class="login-card">
+                <h1>Create Account</h1>
+
+                <form id="signup-form">
+                    <div class="form-group">
+                        <label for="name">Your name</label>
+                        <input type="text" id="name" name="name" placeholder="First and last name" required autocomplete="name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Mobile number or email</label>
+                        <input type="email" id="email" name="email" placeholder="Enter your email" required autocomplete="email">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" placeholder="At least 6 characters" required autocomplete="new-password" minlength="6">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirm-password">Re-enter password</label>
+                        <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password" required autocomplete="new-password" minlength="6">
+                    </div>
+
+                    <p id="signup-error" style="color:#c94a3f; font-size:0.82rem; margin-bottom:12px; display:none;"></p>
+
+                    <button type="submit" class="btn-primary">Create your amaze-on account</button>
+                </form>
+
+                <div class="divider">
+                    <span>Already have an account?</span>
+                </div>
+
+                <a href="login.html" class="btn-secondary">Sign in</a>
+            </div>
+        </main>
+
+        <script>
+            /* ------------------------------------------------------------------ */
+            /* Same fix as login.html: no backend exists, so this must NOT submit  */
+            /* via a real HTTP POST (that's what was causing the 405 error).       */
+            /* We intercept submit, validate client-side, save the name to         */
+            /* localStorage, then redirect with a normal GET navigation.           */
+            /* ------------------------------------------------------------------ */
+            document.getElementById("signup-form").addEventListener("submit", function (e) {
+                e.preventDefault();
+
+                const name = document.getElementById("name").value.trim();
+                const password = document.getElementById("password").value;
+                const confirmPassword = document.getElementById("confirm-password").value;
+                const errorEl = document.getElementById("signup-error");
+
+                if (password !== confirmPassword) {
+                    errorEl.textContent = "Passwords do not match.";
+                    errorEl.style.display = "block";
+                    return;
+                }
+
+                errorEl.style.display = "none";
+                localStorage.setItem("amazeon_user", name);
+                window.location.href = "index.html";
+            });
+        </script>
+
+    </body>
+    </html>
+- path: style.css
+  description: Shared stylesheet for login.html and signup.html
+  content: |-
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    }
+
+    body {
+        background-color: #f3f5f8;
+        color: #0f1111;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Header matching the top navy bar */
+    .navbar {
+        background-color: #131921;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-bottom: 3px solid #f3a847;
+        padding: 0 20px;
+    }
+
+    .logo {
+        font-size: 1.5rem;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+        color: #ffffff;
+    }
+
+    .logo span {
+        color: #f3a847;
+    }
+
+    /* Page body / card container */
+    .login-wrapper {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 30px 16px;
+    }
+
+    .login-card {
+        width: 100%;
+        max-width: 380px;
+        background-color: #ffffff;
+        border: 1px solid #d5d9d9;
+        border-radius: 8px;
+        padding: 28px 26px;
+        box-shadow: 0 2px 5px rgba(15, 17, 17, 0.05);
+    }
+
+    .login-card h1 {
+        font-size: 1.6rem;
+        font-weight: 600;
+        color: #0f1111;
+        margin-bottom: 20px;
+    }
+
+    /* Form inputs & labels */
+    .form-group {
+        margin-bottom: 16px;
+    }
+
+    .label-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 6px;
+    }
+
+    label {
+        display: block;
+        font-size: 0.82rem;
+        font-weight: 700;
+        color: #111;
+        margin-bottom: 6px;
+    }
+
+    .label-row label {
+        margin-bottom: 0;
+    }
+
+    input {
+        width: 100%;
+        height: 38px;
+        padding: 6px 12px;
+        font-size: 0.9rem;
+        border: 1px solid #888c8c;
+        border-radius: 6px;
+        background-color: #ffffff;
+        outline: none;
+        transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    input:focus {
+        border-color: #e47911;
+        box-shadow: 0 0 0 3px rgba(228, 121, 17, 0.25);
+    }
+
+    .forgot-link {
+        font-size: 0.78rem;
+        color: #213547;
+        text-decoration: none;
+    }
+
+    .forgot-link:hover {
+        color: #c45500;
+        text-decoration: underline;
+    }
+
+    /* Primary orange CTA button */
+    .btn-primary {
+        width: 100%;
+        height: 40px;
+        margin-top: 8px;
+        background: #f3a847;
+        border: 1px solid #e29227;
+        border-radius: 6px;
+        color: #0f1111;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.15s ease;
+    }
+
+    .btn-primary:hover {
+        background: #e47911;
+    }
+
+    /* Subtle separator */
+    .divider {
+        position: relative;
+        text-align: center;
+        margin: 26px 0 16px;
+    }
+
+    .divider::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: #e7e7e7;
+        z-index: 1;
+    }
+
+    .divider span {
+        position: relative;
+        z-index: 2;
+        background: #ffffff;
+        padding: 0 10px;
+        font-size: 0.78rem;
+        color: #767676;
+    }
+
+    /* Secondary ghost-button for registration */
+    .btn-secondary {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 38px;
+        background: #ffffff;
+        border: 1px solid #d5d9d9;
+        border-radius: 6px;
+        color: #0f1111;
+        font-size: 0.85rem;
+        font-weight: 500;
+        text-decoration: none;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        transition: background 0.15s ease, border-color 0.15s ease;
+    }
+
+    .btn-secondary:hover {
+        background: #f7fafa;
+        border-color: #a8acad;
+    }
