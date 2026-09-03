@@ -1,194 +1,105 @@
-site:
+version: "1.0"
+store:
   name: "amaze-on"
-  title: "amaze-on — search & shop"
-  language: "en"
-  theme:
-    primary: "#262b5c"
-    secondary: "#ffb020"
-    background: "#ffffff"
-    surface: "#f2f3f8"
-    text: "#20222c"
-    muted: "#6b6f85"
-
-header:
-  logo:
-    text: "amaze"
-    suffix: "-on"
-    suffix_color: "#ffb020"
-
-  search:
-    enabled: true
-    placeholder: "Search amaze-on for anything..."
-    role: "search"
-    behavior: "filter-products"
-
-  account:
-    logged_out:
-      visible: true
-      button:
-        text: "Log in"
-        href: "login.html"
-
-    logged_in:
-      visible: false
-      greeting: "Hi, {user}"
-      logout_text: "Log out"
-      storage_key: "amazeon_user"
-
-  cart:
-    enabled: true
-    label: "Cart"
-    storage_key: "amazeon_cart"
-    drawer:
-      width: "400px"
-      max_width: "92vw"
-      overlay: true
-      close_on_escape: true
-
-tagline:
-  text: "Search it, add it, amaze yourself with how fast it shows up."
-  emphasized_word: "amaze"
+  tagline: "Search it, add it, amaze yourself with how fast it shows up."
+  currency: "USD"
 
 products:
-  layout:
-    columns:
-      desktop: 3
-      tablet: 2
-      mobile: 1
-    gap: "26px"
-    max_width: "1180px"
+  - id: "p1"
+    name: "Cloudstep Running Shoes"
+    category: "Footwear"
+    desc: "Lightweight everyday trainers with breathable mesh and cushioned soles."
+    price: 59.99
+    rating:
+      score: 4.5
+      reviews_count: 2301
+    img: "1.webp"
+    in_stock: true
 
-  catalog:
-    - id: "p1"
-      name: "Cloudstep Running Shoes"
-      description: "Lightweight everyday trainers with breathable mesh and cushioned soles."
-      price: 59.99
-      rating: "4.5 (2,301)"
+  - id: "p2"
+    name: "AuraBrew Coffee Maker"
+    category: "Kitchen Appliances"
+    desc: "12-cup drip machine with a built-in grinder and keep-warm plate."
+    price: 74.50
+    rating:
+      score: 4.3
+      reviews_count: 958
+    img: "2.webp"
+    in_stock: true
 
-    - id: "p2"
-      name: "AuraBrew Coffee Maker"
-      description: "12-cup drip machine with a built-in grinder and keep-warm plate."
-      price: 74.50
-      rating: "4.3 (958)"
+  - id: "p3"
+    name: "Nomad 20L Backpack"
+    category: "Bags & Travel"
+    desc: "Water-resistant daypack with a padded laptop sleeve and side pockets."
+    price: 42.00
+    rating:
+      score: 4.6
+      reviews_count: 1477
+    img: "3.webp"
+    in_stock: true
 
-    - id: "p3"
-      name: "Nomad 20L Backpack"
-      description: "Water-resistant daypack with a padded laptop sleeve and side pockets."
-      price: 42.00
-      rating: "4.6 (1,477)"
+  - id: "p4"
+    name: "Lumen Desk Lamp"
+    category: "Home & Office"
+    desc: "Adjustable LED lamp with three brightness levels and USB charging port."
+    price: 28.99
+    rating:
+      score: 4.4
+      reviews_count: 612
+    img: "4.webp"
+    in_stock: true
 
-    - id: "p4"
-      name: "Lumen Desk Lamp"
-      description: "Adjustable LED lamp with three brightness levels and USB charging port."
-      price: 28.99
-      rating: "4.4 (612)"
+  - id: "p5"
+    name: "EchoSound Earbuds"
+    category: "Audio & Electronics"
+    desc: "True wireless earbuds with active noise cancellation and 24-hour battery."
+    price: 89.00
+    rating:
+      score: 4.2
+      reviews_count: 3140
+    img: "5.webp"
+    in_stock: true
 
-    - id: "p5"
-      name: "EchoSound Earbuds"
-      description: "True wireless earbuds with active noise cancellation and 24-hour battery."
-      price: 89.00
-      rating: "4.2 (3,140)"
+  - id: "p6"
+    name: "Terra Cast Iron Pan"
+    category: "Cookware"
+    desc: "Pre-seasoned 12-inch skillet built for stovetop, oven, or campfire."
+    price: 35.75
+    rating:
+      score: 4.7
+      reviews_count: 2005
+    img: "6.webp"
+    in_stock: true
 
-    - id: "p6"
-      name: "Terra Cast Iron Pan"
-      description: "Pre-seasoned 12-inch skillet built for stovetop, oven, or campfire."
-      price: 35.75
-      rating: "4.7 (2,005)"
+  - id: "p7"
+    name: "Flexi Yoga Mat"
+    category: "Fitness & Wellness"
+    desc: "Non-slip 6mm mat with carry strap, ideal for yoga, pilates, or stretching."
+    price: 24.99
+    rating:
+      score: 4.5
+      reviews_count: 874
+    img: "7.webp"
+    in_stock: true
 
-    - id: "p7"
-      name: "Flexi Yoga Mat"
-      description: "Non-slip 6mm mat with carry strap, ideal for yoga, pilates, or stretching."
-      price: 24.99
-      rating: "4.5 (874)"
+  - id: "p8"
+    name: "Pulse Fitness Tracker"
+    category: "Wearables & Fitness"
+    desc: "Tracks steps, heart rate, and sleep with a 10-day battery life."
+    price: 49.99
+    rating:
+      score: 4.1
+      reviews_count: 1690
+    img: "8.webp"
+    in_stock: true
 
-    - id: "p8"
-      name: "Pulse Fitness Tracker"
-      description: "Tracks steps, heart rate, and sleep with a 10-day battery life."
-      price: 49.99
-      rating: "4.1 (1,690)"
-
-    - id: "p9"
-      name: "Hearth Ceramic Mug Set"
-      description: "Set of 4 stoneware mugs, dishwasher and microwave safe."
-      price: 19.50
-      rating: "4.8 (536)"
-
-cart:
-  initial_state: {}
-
-  behavior:
-    add_product: true
-    remove_product: true
-    update_quantity: true
-    minimum_quantity: 1
-    maximum_quantity: 99
-    persist_to_local_storage: true
-
-  display:
-    show_item_count: true
-    show_unit_price: true
-    show_line_total: true
-    show_subtotal: true
-
-  checkout:
-    enabled: true
-    empty_cart_message: "Your cart is empty — add a product first."
-    placeholder_action: "Show checkout total"
-    currency: "USD"
-
-search:
-  enabled: true
-  search_fields:
-    - "name"
-    - "description"
-  case_sensitive: false
-  behavior: "hide-nonmatching-products"
-
-authentication:
-  storage_key: "amazeon_user"
-
-  login:
-    page: "login.html"
-    on_success:
-      save_user_to_local_storage: true
-      redirect_to: "index.html"
-
-  logout:
-    remove_user_from_local_storage: true
-
-storage:
-  cart_key: "amazeon_cart"
-  user_key: "amazeon_user"
-
-accessibility:
-  search_label: "Search products"
-  cart_role: "dialog"
-  cart_aria_modal: true
-  cart_aria_label: "Your cart"
-  close_cart_aria_label: "Close cart"
-  keyboard:
-    escape_closes_cart: true
-  focus_outline: true
-
-responsive:
-  breakpoints:
-    tablet: "980px"
-    mobile: "720px"
-
-  tablet:
-    product_columns: 2
-
-  mobile:
-    product_columns: 1
-    header_wrap: true
-    search_full_width: true
-    hide_account_greeting: true
-
-animations:
-  transitions: true
-  reduced_motion_support: true
-
-files:
-  html: "index.html"
-  css: "styles.css"
-  login: "login.html"
+  - id: "p9"
+    name: "Hearth Ceramic Mug Set"
+    category: "Kitchen & Dining"
+    desc: "Set of 4 stoneware mugs, dishwasher and microwave safe."
+    price: 19.50
+    rating:
+      score: 4.8
+      reviews_count: 536
+    img: "9.webp"
+    in_stock: true
